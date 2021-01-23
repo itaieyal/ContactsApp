@@ -12,6 +12,8 @@ const APP_STATES = {
 const API_ENDPOINT = "https://candidate-test.herokuapp.com/contacts";
 const SUCCESS_STATUS = 200;
 
+const ERROR_MESSAGE = "An error occured while getting your contacts.";
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -91,7 +93,7 @@ class App extends React.Component {
   _getErrorState() {
     return (
       <div className="errorState">
-        An error has occured.{" "}
+        {ERROR_MESSAGE}{" "}
         <span className="reloadLink" onClick={() => this.handleReloadClick()}>
           Reload
         </span>
@@ -108,7 +110,8 @@ class App extends React.Component {
       case APP_STATES.ERROR:
         return this._getErrorState();
       default:
-        throw new Error("Unknown app state!");
+        console.error("Unknown app state!");
+        return this._getErrorState();
     }
   }
 
