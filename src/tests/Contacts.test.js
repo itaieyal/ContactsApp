@@ -50,7 +50,7 @@ describe("When there are contacts to display", () => {
 });
 
 describe("When there are no contacts to display", () => {
-  test("Contacts should not be displayed", () => {
+  test("Contacts should not be rendered, and a 'no contacts' message should show", () => {
     render(<Contacts contacts={[]} />);
     const contacts = document.querySelectorAll(".contactCardWrapper");
     const noContactsMessage = screen.getByText(/No contacts to display/i);
