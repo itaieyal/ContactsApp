@@ -1,6 +1,13 @@
 import Contacts from "./components/contacts";
+import Search from "./components/search";
 import React from "react";
-import searchIcon from "./assets/searchIcon.png";
+import Spinner from "./assets/spinner.png";
+
+const APP_STATES = {
+  UP: 0,
+  LOADING: 1,
+  ERROR: 2,
+};
 
 const API_ENDPOINT = "https://candidate-test.herokuapp.com/contacts";
 const SUCCESS_STATUS = 200;
@@ -11,8 +18,9 @@ class App extends React.Component {
     this.state = {
       contacts: [],
       displayedContacts: [],
-      loading: true,
-      errorState: false,
+      // loading: true,
+      // errorState: false,
+      appState: APP_STATES.LOADING,
     };
 
     this.handleSearchKeyUp = this.searchKeyUpHandler.bind(this);
@@ -32,13 +40,11 @@ class App extends React.Component {
         this.setState({
           contacts: contacts,
           displayedContacts: contacts,
-          loading: false,
-          errorState: false,
+          appState: APP_STATES.UP,
         });
       } else {
         this.setState({
-          loading: false,
-          errorState: true,
+          appState: APP_STATES.ERROR,
         });
         console.error("Failed to fetch contacts");
       }
@@ -48,8 +54,7 @@ class App extends React.Component {
 
   reloadClickHandler() {
     this.setState({
-      loading: true,
-      errorState: false,
+      appState: APP_STATES.LOADING,
     });
     this._fetchContacts();
   }
@@ -77,40 +82,43 @@ class App extends React.Component {
     });
   }
 
+  getAppBody(appState) {
+    switch (appState) {
+      case APP_STATES.UP:
+        return <Contacts contacts={this.state.displayedContacts} />;
+      case APP_STATES.LOADING:
+        return (
+          <div className="spinner">
+            <img src={Spinner} alt="Loading..." width="60px" height="60px" />
+          </div>
+        );
+      case APP_STATES.ERROR:
+        return (
+          <div className="errorState">
+            An error has occured.{" "}
+            <span
+              className="reloadLink"
+              onClick={() => this.handleReloadClick()}
+            >
+              Reload
+            </span>
+          </div>
+        );
+      default:
+        throw new Error("Unknown app state!");
+    }
+  }
+
   render() {
     return (
       <div className="app">
         <div className="header">
           <div className="appTitle headerItem">Contact List</div>
           <div className="inputContainer headerItem">
-            <span className="searchInputWrapper">
-              <input
-                className="searchInput"
-                placeholder="Search..."
-                onKeyUp={(event) => this.handleSearchKeyUp(event.target.value)}
-              />
-              <img src={searchIcon} alt="search icon" className="searchIcon" />
-            </span>
+            <Search handleSearchKeyUp={this.handleSearchKeyUp} />
           </div>
         </div>
-        <div className="appBody">
-          {this.state.errorState ? (
-            <div className="errorState">
-              An error has occured.{" "}
-              <span
-                className="reloadLink"
-                onClick={() => this.handleReloadClick()}
-              >
-                Reload
-              </span>
-            </div>
-          ) : (
-            <Contacts
-              isLoading={this.state.loading}
-              contacts={this.state.displayedContacts}
-            />
-          )}
-        </div>
+        <div className="appBody">{this.getAppBody(this.state.appState)}</div>
       </div>
     );
   }

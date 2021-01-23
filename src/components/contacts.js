@@ -1,12 +1,9 @@
-import Spinner from "../assets/spinner.png";
 import Contact from "./contact";
 
 function Contacts(props) {
-  const { contacts, isLoading } = props;
-  return isLoading ? (
-    <div className="spinner">
-      <img src={Spinner} alt="Loading..." width="60px" height="60px" />
-    </div>
+  const { contacts } = props;
+  return contacts.length === 0 ? (
+    <div className="noContactsMessage">No contacts to display</div>
   ) : (
     <div id="contactsContainer">
       {contacts.map((contact, index) => {
