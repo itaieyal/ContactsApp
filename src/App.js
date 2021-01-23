@@ -18,8 +18,6 @@ class App extends React.Component {
     this.state = {
       contacts: [],
       displayedContacts: [],
-      // loading: true,
-      // errorState: false,
       appState: APP_STATES.LOADING,
     };
 
@@ -82,28 +80,33 @@ class App extends React.Component {
     });
   }
 
+  _getLoadingState() {
+    return (
+      <div className="spinner">
+        <img src={Spinner} alt="Loading..." width="60px" height="60px" />
+      </div>
+    );
+  }
+
+  _getErrorState() {
+    return (
+      <div className="errorState">
+        An error has occured.{" "}
+        <span className="reloadLink" onClick={() => this.handleReloadClick()}>
+          Reload
+        </span>
+      </div>
+    );
+  }
+
   getAppBody(appState) {
     switch (appState) {
       case APP_STATES.UP:
         return <Contacts contacts={this.state.displayedContacts} />;
       case APP_STATES.LOADING:
-        return (
-          <div className="spinner">
-            <img src={Spinner} alt="Loading..." width="60px" height="60px" />
-          </div>
-        );
+        return this._getLoadingState();
       case APP_STATES.ERROR:
-        return (
-          <div className="errorState">
-            An error has occured.{" "}
-            <span
-              className="reloadLink"
-              onClick={() => this.handleReloadClick()}
-            >
-              Reload
-            </span>
-          </div>
-        );
+        return this._getErrorState();
       default:
         throw new Error("Unknown app state!");
     }
