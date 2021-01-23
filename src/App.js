@@ -34,8 +34,11 @@ class App extends React.Component {
   _fetchContacts() {
     const xhr = new XMLHttpRequest();
     xhr.open("GET", API_ENDPOINT);
-    xhr.onload = () => {
-      if (xhr.status === SUCCESS_STATUS) {
+    xhr.onreadystatechange = () => {
+      if (
+        xhr.readyState === XMLHttpRequest.DONE &&
+        xhr.status === SUCCESS_STATUS
+      ) {
         const contacts = JSON.parse(xhr.responseText);
         this.setState({
           contacts: contacts,
