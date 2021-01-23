@@ -1,0 +1,58 @@
+@import "colors.css";
+
+.header {
+  align-items: center;
+  background: white;
+  display: flex;
+  min-height: 80px;
+  padding: 0 10vw;
+}
+
+.headerItem {
+  width: 50%;
+}
+
+.appTitle {
+  color: var(--text-grey);
+  font-size: 40px;
+}
+
+span.searchInputWrapper {
+  position: relative;
+}
+
+input.searchInput {
+  border: 1px solid var(--border-grey);
+  height: 30px;
+  padding: 0 5px;
+  width: 100%;
+}
+
+img.searchIcon {
+  position: absolute;
+  right: 5px;
+  top: 0;
+  width: 20px;
+}
+
+input.searchInput::placeholder {
+  color: var(--text-light-grey);
+}
+
+/* Media queries */
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    min-height: auto;
+    padding: 20px;
+  }
+  .appTitle {
+    margin-bottom: 20px;
+  }
+  .headerItem {
+    text-align: center;
+    width: 80%;
+  }
+}

@@ -1,0 +1,121 @@
+@import "colors.css";
+
+#contactsContainer {
+  display: grid;
+  grid-gap: 5px;
+  margin: 0 auto;
+  margin-top: 60px;
+  padding-bottom: 60px;
+  position: relative;
+  width: 80vw;
+}
+
+.profile-image-wrapper {
+  height: 200px;
+  margin: 0 auto;
+  min-height: 200px;
+}
+
+.icon {
+  left: 4px;
+  position: absolute;
+  top: -20px;
+}
+
+.contactCard {
+  background-color: white;
+  border: 1px solid var(--border-grey);
+  color: #2c2e2f;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 265px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  max-width: 250px;
+  overflow: hidden;
+  padding: 2vw;
+}
+
+.contactDetails {
+  background-color: white;
+  left: 0;
+  padding-top: 35px;
+  position: relative;
+  top: 0;
+  transition: top ease-out 0.3s;
+  width: 100%;
+}
+
+.contactCard:hover .contactDetails {
+  top: -50px;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.jobAndCompany,
+.phone,
+.email {
+  font-size: 12px;
+  font-weight: 100;
+}
+
+.basicDetails {
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+img.profile-image {
+  width: 100%;
+}
+
+/* Media queries */
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  #contactsContainer {
+    grid-template-columns: 100%;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 0px) and (max-width: 599px) {
+  #contactsContainer {
+    grid-template-columns: 100%;
+  }
+
+  img.profile-image {
+    height: 100%;
+    width: auto;
+  }
+
+  .contactCard {
+    height: 285px;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 600px) and (max-width: 991px) {
+  #contactsContainer {
+    grid-template-columns: 50% 50%;
+  }
+  .contactCard {
+    height: 275px;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  #contactsContainer {
+    grid-template-columns: 33% 33% 34%;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  #contactsContainer {
+    grid-template-columns: 25% 25% 25% 25%;
+  }
+}
